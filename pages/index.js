@@ -74,7 +74,6 @@ function Index(props) {
 	  let jobs = dataJobs.slice(), newJobs = [], resJobs
 
 		resJobs = await libJobs.fetchDataJobs( { page: batch } )
-		console.log("resJobs: ", resJobs)
 		newJobs = resJobs.data
 
     for (var i = 0; i < newJobs.length; i++) {
