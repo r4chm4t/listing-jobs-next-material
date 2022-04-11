@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
+import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -67,12 +68,14 @@ BoxJob.propTypes = {
 function Index(props) {
   const [dataJobs, setDataJobs] = React.useState(props.posts || [])
   const [batch, setBatch] = React.useState(2)
+	const [isLoad, setIsLoad] = React.useState(false)
 
   const handleLoadJobs = async function(e) {
     e.preventDefault()
 
 	  let jobs = dataJobs.slice(), newJobs = [], resJobs
 
+		setIsLoad(true)
 		resJobs = await libJobs.fetchDataJobs( { page: batch } )
 		newJobs = resJobs.data
 
@@ -81,6 +84,7 @@ function Index(props) {
     }
 
     setDataJobs(jobs)
+		setIsLoad(false)
 
 		await setBatch((batch + 1))
   }
@@ -128,7 +132,9 @@ function Index(props) {
 
 				{dataJobs && dataJobs.length ? (
 					<Box sx={{ mb: 4 }}>
-						<Button variant="outlined" onClick={handleLoadJobs} fullWidth>Load Jobs</Button>
+						<Button variant="outlined" onClick={handleLoadJobs} fullWidth>
+							{ isLoad ? (<CircularProgress size={20} />) : 'Load Jobs' }
+						</Button>
 					</Box>
 					) : null
 				}
