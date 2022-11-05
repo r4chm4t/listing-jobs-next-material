@@ -32,7 +32,7 @@ function HeaderFeMain() {
         <Toolbar sx={ styles.toolbar }>
 
           <Box sx={ styles.headerTitle }>
-            <h1>Github Jobs App</h1>
+            <h1>Listing Jobs App</h1>
           </Box>
 
         </Toolbar>
